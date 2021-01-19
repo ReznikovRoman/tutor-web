@@ -56,9 +56,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    'accounts.middleware.restrict_admin_page_middleware.RestrictStaffToAdminMiddleware',
 ]
+
+# 'accounts.middleware.restrict_admin_page_middleware.RestrictStaffToAdminMiddleware',
 
 ROOT_URLCONF = 'tutor_web.urls'
 
@@ -97,6 +97,8 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 AUTH_PASSWORD_VALIDATORS = [
     {

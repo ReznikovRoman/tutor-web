@@ -25,23 +25,23 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_staffuser(self, email, first_name, last_name, password):
+    def create_staffuser(self, email, password, first_name, last_name):
         user = self.create_user(
             email=self.normalize_email(email),
+            password=password,
             first_name=first_name,
             last_name=last_name,
-            password=password,
         )
         user.is_staff = True
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, first_name, last_name, password):
+    def create_superuser(self, email, password, first_name, last_name):
         user = self.create_user(
             email=self.normalize_email(email),
+            password=password,
             first_name=first_name,
             last_name=last_name,
-            password=password
         )
         user.is_admin = True
         user.is_staff = True
@@ -91,7 +91,7 @@ class CustomUser(AbstractUser, PermissionsMixin):
 
     # login parameter
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = [first_name, last_name, ]
+    REQUIRED_FIELDS = ['first_name', 'last_name', ]
 
     objects = CustomUserManager()
 
@@ -102,6 +102,10 @@ class CustomUser(AbstractUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
 
     def has_perm(self, perm, obj=None):
         if perm in self.get_all_permissions() or perm in self.get_group_permissions():
