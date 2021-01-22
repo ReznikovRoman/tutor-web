@@ -241,6 +241,8 @@ fabric.properties
 todo.txt
 
 venv/
+
 ckeditor/
+admin/
 
 drafts/
